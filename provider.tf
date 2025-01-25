@@ -50,6 +50,6 @@ resource "aws_transfer_server" "internal_sftp" {
     subnet_ids        = [aws_subnet.public_1.id, aws_subnet.public_2.id]
     security_group_ids = [aws_security_group.alb_sg.id]
   }
-  protocol = "SFTP"
+  protocols = ["SFTP"]
   logging_role = aws_iam_role.transfer_role.arn
 }

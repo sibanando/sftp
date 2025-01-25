@@ -1,6 +1,6 @@
 # ALB Security Group
-resource "aws_security_group" "alb_sg" {
-  name        = "alb_sg"
+resource "aws_security_group" "alb_sg_lb" {
+  name        = "alb_sg_lb"
   description = "Security group for ALB"
 
   ingress {
@@ -23,7 +23,7 @@ resource "aws_lb" "alb" {
   name               = "sftp-alb"
   internal           = false
   load_balancer_type = "application"
-  security_groups   = [aws_security_group.alb_sg.id]
+  security_groups   = [aws_security_group.alb_sg_lb.id]
   subnets            = data.aws_subnet_ids.public.ids
 }
 
