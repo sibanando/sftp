@@ -44,7 +44,7 @@ resource "aws_lb_target_group" "alb_target_group" {
   name        = "sftp-target-group"
   port        = 22
   protocol    = "TCP"
-  target_type = "instance"
+  target_type = aws.transfer_server.internal_sftp.arn
   vpc_id      = aws_vpc.main.id
 
   health_check {
