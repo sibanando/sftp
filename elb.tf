@@ -45,6 +45,7 @@ resource "aws_lb_target_group" "alb_target_group" {
   port        = 22
   protocol    = "TCP"
   target_type = "instance"
+  vpc_id      = aws_vpc.main.id
 
   health_check {
     protocol = "TCP"
