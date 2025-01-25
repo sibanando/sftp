@@ -157,7 +157,7 @@ resource "aws_transfer_server" "sftp" {
     identity_provider_type = "SERVICE_MANAGED"
     endpoint_details {
     vpc_id            = aws_vpc.main.id
-    subnet_ids        = [aws_subnet.private, aws_subnet.private2]
+    subnet_ids        = [aws_subnet.private.id, aws_subnet.private2.id]
     security_group_ids = [aws_security_group.sftp_sg.id]
   }
   protocols = ["SFTP"]
