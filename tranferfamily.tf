@@ -19,6 +19,12 @@ resource "aws_subnet" "public" {
     map_public_ip_on_launch = true
     availability_zone = "us-west-2a"
 }
+resource "aws_subnet" "public2" {
+    vpc_id            = aws_vpc.main.id
+    cidr_block        = "10.0.4.0/24"
+    map_public_ip_on_launch = true
+    availability_zone = "us-west-2b"
+}
 
 # Private Subnet
 resource "aws_subnet" "private" {
@@ -52,6 +58,8 @@ resource "aws_route_table" "public" {
         gateway_id = aws_internet_gateway.igw.id
     }
 }
+
+
 
 resource "aws_route_table_association" "public" {
     subnet_id      = aws_subnet.public.id
@@ -89,7 +97,11 @@ resource "aws_route_table_association" "private2" {
 
 # S3 Bucket
 resource "aws_s3_bucket" "sftp_bucket" {
-    bucket = "my-sftp-bucket"
+    bucket = "my-unique-sftp-bucket-${random_id.bucket_id.hex}"
+}
+
+resource "random_id" "bucket_id" {
+    byte_length = 8
 }
 
 # IAM Role
@@ -166,11 +178,10 @@ resource "aws_transfer_server" "sftp" {
 
 # Application Load Balancer
 resource "aws_lb" "internal" {
-    name               = "alb-internal"
+    subnets            = [aws_subnet.public.id, aws_subnet.public2.id]
     internal           = false
     load_balancer_type = "application"
     security_groups    = [aws_security_group.sftp_sg.id]
-    subnets            = [aws_subnet.public.id]
 }
 
 resource "aws_lb_target_group" "sftp_tg" {
