@@ -44,7 +44,7 @@ jobs:
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
-      run: terraform plan --auto-approve
+      run: terraform plan -out=tfplan -input=false
       
 
     # On push to "main", build or change infrastructure according to Terraform configuration files
