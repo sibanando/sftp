@@ -1,12 +1,12 @@
 # Route 53 Hosted Zone
 resource "aws_route53_zone" "main" {
-  name = "example.com" # Replace with your domain name
+  name = "talktech.in" # Replace with your domain name
 }
 
 # DNS Record for ALB
 resource "aws_route53_record" "alb_record" {
   zone_id = aws_route53_zone.main.id
-  name    = "sftp.example.com" # Replace with your subdomain
+  name    = "sftp.talktech.in" # Replace with your subdomain
   type    = "A"
 
   alias {
