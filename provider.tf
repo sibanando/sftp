@@ -20,9 +20,7 @@ resource "aws_subnet" "public_2" {
   availability_zone = "us-west-2b"
 }
 
-data "aws_subnet_ids" "public" {
-  vpc_id = aws_vpc.main.id
-}
+
 
 # Security Group for the Transfer Family server
 resource "aws_security_group" "alb_sg" {
