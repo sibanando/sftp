@@ -180,7 +180,7 @@ resource "aws_transfer_server" "sftp" {
 resource "aws_lb" "internal" {
     subnets            = [aws_subnet.public.id, aws_subnet.public2.id]
     internal           = false
-    load_balancer_type = "application"
+    load_balancer_type = "network"
     security_groups    = [aws_security_group.sftp_sg.id]
 }
 
